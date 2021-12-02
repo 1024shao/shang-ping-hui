@@ -7,8 +7,8 @@
           <p>尚品汇欢迎您！</p>
           <p>
             <span>请</span>
-            <a href="###">登录</a>
-            <a href="###" class="register">免费注册</a>
+            <router-link to='/login' href="###">登录</router-link>
+            <router-link to='/register' class="register">免费注册</router-link>
           </p>
         </div>
         <div class="typeList">
@@ -26,14 +26,14 @@
     <!--头部第二行 搜索区域-->
     <div class="bottom">
       <h1 class="logoArea">
-        <a class="logo" title="尚品汇" href="###" target="_blank">
+        <router-link class="logo" to='/home'>
           <img src="./images/logo.png" alt="">
-        </a>
+        </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
           <input type="text" id="autocomplete" class="input-error input-xxlarge" />
-          <button class="sui-btn btn-xlarge btn-danger" type="button">搜索</button>
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
         </form>
       </div>
     </div>
@@ -42,7 +42,11 @@
 
 <script>
 export default {
-
+  methods: {
+    goSearch() {
+      this.$router.push('/search')
+    }
+  }
 }
 </script>
 

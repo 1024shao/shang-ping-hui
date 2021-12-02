@@ -8,9 +8,9 @@ export const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', redirect: '/home' },
-    { path: '/home', component: Home },
-    { path: '/search', component: () => import('../views/Search') },
-    { path: '/login', component: () => import('../views/Login') },
-    { path: '/register', component: () => import('../views/Register') },
+    { path: '/home', component: Home, meta: { show: true } },
+    { path: '/search', component: () => import('../views/Search'), meta: { show: true } },
+    { path: '/login', component: () => import('../views/Login'), meta: { show: false } },
+    { path: '/register', component: () => import('../views/Register'), meta: { show: false } },
   ]
 });
