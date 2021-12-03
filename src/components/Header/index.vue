@@ -52,7 +52,7 @@ export default {
       this.$router.push({
         name: 'search',
         // 解决params传递参数为空的情况
-        params: { keyword: "" || undefined },
+        params: { keyword: this.keyword },
         query: {
           keyword1: this.keyword
         }
