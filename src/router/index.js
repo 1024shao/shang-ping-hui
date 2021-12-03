@@ -11,7 +11,8 @@ export const router = new VueRouter({
     { path: '/home', component: Home, meta: { show: true } },
     {
       name: 'search',
-      path: '/search:keyword?',
+      //   params传递参数需要路由进行占位符   /:name   /:name 表示可以传递也可以不传
+      path: '/search/:keyword ',
       component: () => import('../views/Search'),
       meta: { show: true }
     },

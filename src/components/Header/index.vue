@@ -51,9 +51,10 @@ export default {
     goSearch() {
       this.$router.push({
         name: 'search',
-        params: { keyword: this.keyword },
+        // 解决params传递参数为空的情况
+        params: { keyword: "" || undefined },
         query: {
-          keyword: this.keyword
+          keyword1: this.keyword
         }
       })
     }
