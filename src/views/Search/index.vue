@@ -1,6 +1,6 @@
 <template>
   <div>
-
+    <h2>{{$route.params.keyword}}</h2>
   </div>
 </template>
 

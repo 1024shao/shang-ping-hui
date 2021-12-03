@@ -9,8 +9,21 @@ export const router = new VueRouter({
   routes: [
     { path: '/', redirect: '/home' },
     { path: '/home', component: Home, meta: { show: true } },
-    { path: '/search', component: () => import('../views/Search'), meta: { show: true } },
-    { path: '/login', component: () => import('../views/Login'), meta: { show: false } },
-    { path: '/register', component: () => import('../views/Register'), meta: { show: false } },
+    {
+      name: 'search',
+      path: '/search:keyword?',
+      component: () => import('../views/Search'),
+      meta: { show: true }
+    },
+    {
+      path: '/login',
+      component: () => import('../views/Login'),
+      meta: { show: false }
+    },
+    {
+      path: '/register',
+      component: () => import('../views/Register'),
+      meta: { show: false }
+    }
   ]
 });
