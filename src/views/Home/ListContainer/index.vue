@@ -6,13 +6,12 @@
         <!--banner轮播-->
         <div class="swiper-container" id="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div class="swiper-slide" v-for="item in bannerList" :key="item.id">
+              <img :src='item.imgUrl' />
             </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
-
           <!-- 如果需要导航按钮 -->
           <div class="swiper-button-prev"></div>
           <div class="swiper-button-next"></div>
@@ -102,8 +101,39 @@
 </template>
 
 <script>
+import Swiper from 'swiper'
+import { requestBannerList } from '@/api'
 export default {
-  name: 'list-container'
+  name: 'list-container',
+  data() {
+    return {
+      bannerList: []
+    }
+  },
+  created() {
+    requestBannerList().then(res => {
+      if (res.code == 200) {
+        this.bannerList = res.data
+      }
+    })
+  },
+  watch: {
+    bannerList() {
+      this.$nextTick(() => {
+        var mySwiper = new Swiper(document.querySelector('.swiper-container'), {
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination', //分页器
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+        })
+      })
+    }
+  }
 }
 </script>
 
