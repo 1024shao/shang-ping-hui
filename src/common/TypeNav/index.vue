@@ -87,7 +87,11 @@ export default {
           query.categoryId = category3id
         }
         location.query = query
-        console.log(location)
+        // 如果当前路由存在params参数则进行合并
+        if (this.$route.params) {
+          location.params = this.$route.params
+          console.log(location.params)
+        }
         this.$router.push(location)
       }
     },
