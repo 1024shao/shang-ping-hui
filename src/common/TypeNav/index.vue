@@ -15,11 +15,11 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }">
-            <h3 @mouseenter="changeIndex(index)" @mouseleave="defaultIndex">
+          <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }" @mouseleave="defaultIndex">
+            <h3 @mouseenter="changeIndex(index)">
               <a href="">{{c1.categoryName}}</a>
             </h3>
-            <div class="item-list clearfix">
+            <div class="item-list clearfix" v-show="currentIndex==index">
               <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                 <dl class="fore">
                   <dt>
@@ -42,6 +42,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import throttle from 'lodash/throttle'
 export default {
   name: 'TypeNav',
   data() {
@@ -58,10 +59,10 @@ export default {
     this.$store.dispatch('getCategoryList')
   },
   methods: {
-    changeIndex(index) {
+    changeIndex: throttle(function (index) {
       this.currentIndex = index
-      console.log(this.currentIndex)
-    },
+      console.log('1111')
+    }, 50),
     defaultIndex() {
       this.currentIndex = -1
     }
@@ -126,7 +127,7 @@ export default {
           }
 
           .item-list {
-            display: none;
+            display: block;
             position: absolute;
             width: 734px;
             min-height: 460px;
@@ -176,12 +177,6 @@ export default {
                   }
                 }
               }
-            }
-          }
-
-          &:hover {
-            .item-list {
-              display: block;
             }
           }
         }
