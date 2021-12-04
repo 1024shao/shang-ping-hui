@@ -1,8 +1,8 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container">
-      <h2 class="all">全部商品分类</h2>
+    <div class="container" @mouseleave="leaveShow">
+      <h2 class="all" @mouseenter="isShowNav = true">全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,29 +13,31 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }" @mouseleave="defaultIndex" @click="goSearch">
-            <h3 @mouseenter="changeIndex(index)">
-              <a :data-categoryName='c1.categoryName' :data-category1id="c1.categoryId">{{c1.categoryName}}</a>
-            </h3>
-            <div class="item-list clearfix" v-show="currentIndex==index">
-              <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
-                <dl class="fore">
-                  <dt>
-                    <a :data-categoryName='c2.categoryName' :data-category2id="c2.categoryId">{{c2.categoryName}}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a :data-categoryName='c3.categoryName' :data-category3id="c3.categoryId">{{c3.categoryName}}</a>
-                    </em>
-                  </dd>
-                </dl>
+      <transition name="sort">
+        <div class="sort" v-show="isShowNav">
+          <div class="all-sort-list2">
+            <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }" @mouseleave="defaultIndex" @click="goSearch">
+              <h3 @mouseenter="changeIndex(index)">
+                <a :data-categoryName='c1.categoryName' :data-category1id="c1.categoryId">{{c1.categoryName}}</a>
+              </h3>
+              <div class="item-list clearfix" v-show="currentIndex==index">
+                <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
+                  <dl class="fore">
+                    <dt>
+                      <a :data-categoryName='c2.categoryName' :data-category2id="c2.categoryId">{{c2.categoryName}}</a>
+                    </dt>
+                    <dd>
+                      <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                        <a :data-categoryName='c3.categoryName' :data-category3id="c3.categoryId">{{c3.categoryName}}</a>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -47,7 +49,8 @@ export default {
   name: 'TypeNav',
   data() {
     return {
-      currentIndex: -1
+      currentIndex: -1,
+      isShowNav: true
     }
   },
   computed: {
@@ -57,6 +60,11 @@ export default {
   },
   created() {
     this.$store.dispatch('getCategoryList')
+  },
+  mounted() {
+    if (this.$route.path != '/home') {
+      this.isShowNav = false
+    }
   },
   methods: {
     changeIndex: throttle(function (index) {
@@ -84,6 +92,12 @@ export default {
         location.query = query
         console.log(location)
         this.$router.push(location)
+      }
+    },
+    // 鼠标移除商品分类
+    leaveShow() {
+      if (this.$route.path != '/home') {
+        this.isShowNav = false
       }
     }
   }
@@ -206,5 +220,16 @@ export default {
 }
 .active {
   background-color: #c4d7f8;
+}
+.sort-enter {
+  opacity: 0;
+  background-color: slategray;
+}
+.sort-enter-to {
+  background-color: snow;
+  opacity: 1;
+}
+.sort-enter-active {
+  transition: all 0.4s linear !important;
 }
 </style>

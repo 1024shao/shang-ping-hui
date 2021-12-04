@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{$route.params.keyword}}----{{keyword}}</h2>
+    <TypeNav />
   </div>
 </template>
 
