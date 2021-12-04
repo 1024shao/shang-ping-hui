@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import { router } from './router'
+import TypeNav from '@/common/TypeNav'
+Vue.component(TypeNav.name, TypeNav)
 Vue.config.productionTip = false
 
 
