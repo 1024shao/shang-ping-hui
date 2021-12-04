@@ -15,19 +15,19 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }" @mouseleave="defaultIndex">
+          <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }" @mouseleave="defaultIndex" @click="goSearch">
             <h3 @mouseenter="changeIndex(index)">
-              <a href="">{{c1.categoryName}}</a>
+              <a :data-categoryName='c1.categoryName' :data-category1id="c1.categoryId">{{c1.categoryName}}</a>
             </h3>
             <div class="item-list clearfix" v-show="currentIndex==index">
               <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                 <dl class="fore">
                   <dt>
-                    <a href="">{{c2.categoryName}}</a>
+                    <a :data-categoryName='c2.categoryName' :data-category2id="c2.categoryId">{{c2.categoryName}}</a>
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{c3.categoryName}}</a>
+                      <a :data-categoryName='c3.categoryName' :data-category3id="c3.categoryId">{{c3.categoryName}}</a>
                     </em>
                   </dd>
                 </dl>
@@ -61,10 +61,30 @@ export default {
   methods: {
     changeIndex: throttle(function (index) {
       this.currentIndex = index
-      console.log('1111')
     }, 50),
     defaultIndex() {
       this.currentIndex = -1
+    },
+    // 时间委派跳转到search路由
+    goSearch(e) {
+      let element = e.target
+      const { categoryname, category1id, category2id, category3id } = element.dataset
+      console.log(element.dataset)
+      if (categoryname) {
+        // 准备跳转location对象
+        const location = { name: 'search' }
+        const query = { categoryName: categoryname }
+        if (category1id) {
+          query.categoryId = category1id
+        } else if (category2id) {
+          query.categoryId = category2id
+        } else {
+          query.categoryId = category3id
+        }
+        location.query = query
+        console.log(location)
+        this.$router.push(location)
+      }
     }
   }
 }
