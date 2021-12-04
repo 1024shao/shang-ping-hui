@@ -3,6 +3,18 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home'
 Vue.use(VueRouter);
 
+// 重写push方法
+let originPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function (location, resolve, reject) {
+  if (resolve && reject) {
+    originPush.call(this, location, resolve, reject)
+  } else {
+    originPush.call(this, location, () => { }, () => { })
+  }
+}
+
+
 export const router = new VueRouter({
   base: '/',
   mode: 'history',
@@ -13,18 +25,18 @@ export const router = new VueRouter({
       name: 'search',
       //   params传递参数需要路由进行占位符   /:name   /:name 表示可以传递也可以不传
       path: '/search/:keyword ',
-      component: () => import('../views/Search'),
+      component: () => import('@/views/Search'),
       meta: { show: true },
       props: ($route) => ({ keyword: $route.params.keyword })
     },
     {
       path: '/login',
-      component: () => import('../views/Login'),
+      component: () => import('@/views/Login'),
       meta: { show: false }
     },
     {
       path: '/register',
-      component: () => import('../views/Register'),
+      component: () => import('@/views/Register'),
       meta: { show: false }
     }
   ]
