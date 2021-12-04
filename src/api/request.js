@@ -2,7 +2,6 @@ import axios from 'axios'
 // 引入进度条
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
-console.log(nprogress)
 const request = axios.create({
   baseURL: '/api',
   timeout: 5000
