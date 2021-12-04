@@ -3,3 +3,12 @@
 
 ## shangPinHui- introduction 🥇
 
+ 
+
+
+## clone and run
+```shell
+  git clone xxx
+  cd ShangPinHuicom
+  npm run serve
+```
