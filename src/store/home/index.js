@@ -1,11 +1,15 @@
-import { requestCategoryList } from '@/api'
+import { requestCategoryList, requestFloorList } from '@/api'
 const state = {
-  categoryList: []
+  categoryList: [],
+  floorList: []
 }
 
 const mutations = {
   CATEGORYLIST(state, value) {
     state.categoryList = value
+  },
+  GETFLOORLIST(state, value) {
+    state.floorList = value
   }
 }
 
@@ -16,6 +20,12 @@ const actions = {
       const list = result.data
       list.pop()
       commit("CATEGORYLIST", list)
+    }
+  },
+  async getFloorList({ commit }) {
+    let result = await requestFloorList()
+    if (result.code == 200) {
+      commit('GETFLOORLIST', result.data)
     }
   }
 }
