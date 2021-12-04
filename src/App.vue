@@ -15,6 +15,10 @@ export default {
     Header,
     Footer
   },
+  created() {
+    // 派发三级列表数据
+    this.$store.dispatch('getCategoryList')
+  },
 }
 </script>
 

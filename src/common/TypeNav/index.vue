@@ -58,9 +58,6 @@ export default {
       categoryList: state => state.home.categoryList
     })
   },
-  created() {
-    this.$store.dispatch('getCategoryList')
-  },
   mounted() {
     if (this.$route.path != '/home') {
       this.isShowNav = false
