@@ -15,8 +15,8 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div class="item bo" v-for="c1 in categoryList" :key='c1.categoryId'>
-            <h3>
+          <div class="item bo" v-for="(c1,index) in categoryList" :key='c1.categoryId' :class="{active: currentIndex===index }">
+            <h3 @mouseenter="changeIndex(index)" @mouseleave="defaultIndex">
               <a href="">{{c1.categoryName}}</a>
             </h3>
             <div class="item-list clearfix">
@@ -44,13 +44,27 @@
 import { mapState } from 'vuex'
 export default {
   name: 'TypeNav',
-  created() {
-    this.$store.dispatch('getCategoryList')
+  data() {
+    return {
+      currentIndex: -1
+    }
   },
   computed: {
     ...mapState({
       categoryList: state => state.home.categoryList
     })
+  },
+  created() {
+    this.$store.dispatch('getCategoryList')
+  },
+  methods: {
+    changeIndex(index) {
+      this.currentIndex = index
+      console.log(this.currentIndex)
+    },
+    defaultIndex() {
+      this.currentIndex = -1
+    }
   }
 }
 </script>
@@ -174,5 +188,8 @@ export default {
       }
     }
   }
+}
+.active {
+  background-color: #c4d7f8;
 }
 </style>

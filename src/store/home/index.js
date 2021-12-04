@@ -14,7 +14,9 @@ const actions = {
     let result = await requestCategoryList()
     console.log(result)
     if (result.code == '200') {
-      commit("CATEGORYLIST", result.data)
+      const list = result.data
+      list.pop()
+      commit("CATEGORYLIST", list)
     }
   }
 }
