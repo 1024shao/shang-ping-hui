@@ -16,16 +16,16 @@
               {{searchParams.categoryName}}<i @click="removeCategoryName"> x</i>
             </li>
             <!-- 关键字的面包屑 -->
-            <li class="with-x" v-show="searchParams.keyword">
-              {{searchParams.keyword}}<i @click="removeKeyword"> x</i></li>
+            <li class="with-x" v-show="searchParams.keyword">{{searchParams.keyword}}<i @click="removeKeyword"> x</i></li>
             <!-- 品牌的面包屑 -->
-            <li class="with-x" v-show="searchParams.trademark">
-              {{searchParams.trademark.split(':')[1]}}<i @click="removeTradeMark"> x</i></li>
+            <li class="with-x" v-show="searchParams.trademark">{{searchParams.trademark.split(':')[1]}}<i @click="removeTradeMark"> x</i></li>
+            <!-- 产品参数的面包屑 -->
+            <li class="with-x" v-for="(item,index) in searchParams.props" :key='index'>{{item.split(':')[1]}}<i @click="removeProp(item)"> x</i></li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector @handleTradeMark='getTradeMarkInfo' />
+        <SearchSelector @handleTradeMark='getTradeMarkInfo' @attrInfo='attrInfo' />
 
         <!--details-->
         <div class="details clearfix">
@@ -186,6 +186,18 @@ export default {
     // 根据分类展示数据
     getTradeMarkInfo(tradeMark) {
       this.searchParams.trademark = `${tradeMark.tmId}:${tradeMark.tmName}`
+      this.getSearchData()
+    },
+    //收集商品数据
+    attrInfo(attr, attrValue) {
+      let prop = `${attr.attrId}:${attrValue}:${attr.attrName}`
+      // 重复添加参数处理
+      if (this.searchParams.props.indexOf(prop) == -1) this.searchParams.props.push(prop)
+      this.getSearchData()
+    },
+    // 移除商品数据面包屑
+    removeProp(item) {
+      this.searchParams.props = this.searchParams.props.filter(x => x != item)
       this.getSearchData()
     }
   },

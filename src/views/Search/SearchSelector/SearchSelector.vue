@@ -16,7 +16,7 @@
       <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(item,index) in attr.attrValueList" :key='index'>
+          <li v-for="(item,index) in attr.attrValueList" :key='index' @click="handleAttr(attr,item)">
             <a>{{item}}</a>
           </li>
         </ul>
@@ -34,9 +34,15 @@ export default {
     ...mapGetters(['attrsList', 'trademarkList'])
   },
   methods: {
+    //点击品牌事件
     TradeMarkClick(item) {
       this.$emit('handleTradeMark', item)
+    },
+    // 点击商品属性事件
+    handleAttr(attr, attrValue) {
+      this.$emit('attrInfo', attr, attrValue)
     }
+
   }
 }
 </script>
