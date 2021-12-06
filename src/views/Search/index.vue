@@ -18,7 +18,7 @@
             <!-- 关键字的面包屑 -->
             <li class="with-x" v-show="searchParams.keyword">{{searchParams.keyword}}<i @click="removeKeyword"> x</i></li>
             <!-- 品牌的面包屑 -->
-            <li class="with-x" v-show="searchParams.trademark">{{searchParams.trademark.split(':')[1]}}<i @click="removeTradeMark"> x</i></li>
+            <li class="with-x" v-if="searchParams.trademark">{{searchParams.trademark.split(':')[1]}}<i @click="removeTradeMark"> x</i></li>
             <!-- 产品参数的面包屑 -->
             <li class="with-x" v-for="(item,index) in searchParams.props" :key='index'>{{item.split(':')[1]}}<i @click="removeProp(item)"> x</i></li>
           </ul>
@@ -53,6 +53,7 @@
               </ul>
             </div>
           </div>
+          <!-- 商品数据 -->
           <div class="goods-list">
             <ul class="yui3-g">
               <li class="yui3-u-1-5" v-for="good in goodsList" :key='good.id'>
@@ -82,7 +83,7 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination :total='31' :pageSize='3' :pageNo='7' :continues='5' />
+          <Pagination :total='total' :pageSize='searchParams.pageSize' :pageNo='searchParams.pageNo' :continues='5' @getPageNo='getPageNo' />
         </div>
       </div>
     </div>
@@ -91,7 +92,7 @@
 
 <script>
 import SearchSelector from './SearchSelector/SearchSelector'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Search',
   data() {
@@ -104,7 +105,7 @@ export default {
         "keyword": "",
         "order": "1:desc", // 默认为: 综合降序
         "pageNo": 1,
-        "pageSize": 10,
+        "pageSize": 3,
         "props": [],
         "trademark": ""
       }
@@ -120,7 +121,10 @@ export default {
     },
     isOne() {
       return this.searchParams.order.indexOf('1') != -1
-    }
+    },
+    ...mapState({
+      total: state => state.search.searchInfo.total
+    })
   },
   beforeMount() {
     Object.assign(this.searchParams, this.$route.query, this.$route.params)
@@ -189,6 +193,11 @@ export default {
         sc = 'desc'
       }
       this.searchParams.order = `${flag}:${sc}`
+      this.getSearchData()
+    },
+    //修改当前所在页码
+    getPageNo(pageNo) {
+      this.searchParams.pageNo = pageNo
       this.getSearchData()
     }
   },
