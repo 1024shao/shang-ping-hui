@@ -1,7 +1,7 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container" @mouseleave="leaveShow">
+    <div class="container" @mouseleave="leaveShow">  
       <h2 class="all" @mouseenter="isShowNav = true">全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>

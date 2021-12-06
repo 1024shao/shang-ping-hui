@@ -6,3 +6,9 @@ export const requestCategoryList = () => request({ url: '/product/getBaseCategor
 export const requestBannerList = () => mockRequest({ url: '/banner', method: 'get' })
 // 请求floor数据
 export const requestFloorList = () => mockRequest({ url: '/floor', method: 'get' })
+// 请求search数据
+export const requestSearchList = params => request({
+  url: '/list',
+  method: 'post',
+  data: params
+})
