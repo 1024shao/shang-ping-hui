@@ -12,15 +12,20 @@
           </ul>
           <ul class="fl sui-tag">
             <li class="with-x" v-show="searchParams.categoryName">
-              {{searchParams.categoryName}}<i @click="removeCategoryName"> x</i></li>
+              <!-- 分类的面包屑 -->
+              {{searchParams.categoryName}}<i @click="removeCategoryName"> x</i>
+            </li>
             <!-- 关键字的面包屑 -->
             <li class="with-x" v-show="searchParams.keyword">
               {{searchParams.keyword}}<i @click="removeKeyword"> x</i></li>
+            <!-- 品牌的面包屑 -->
+            <li class="with-x" v-show="searchParams.trademark">
+              {{searchParams.trademark.split(':')[1]}}<i @click="removeTradeMark"> x</i></li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @handleTradeMark='getTradeMarkInfo' />
 
         <!--details-->
         <div class="details clearfix">
@@ -172,6 +177,16 @@ export default {
       if (this.$router.query) {
         this.$router.push({ name: 'search', query: this.$router.query })
       }
+    },
+    // 移除品牌面包屑
+    removeTradeMark() {
+      this.searchParams.trademark = undefined
+      this.getSearchData()
+    },
+    // 根据分类展示数据
+    getTradeMarkInfo(tradeMark) {
+      this.searchParams.trademark = `${tradeMark.tmId}:${tradeMark.tmName}`
+      this.getSearchData()
     }
   },
   watch: {
