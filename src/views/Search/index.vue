@@ -32,24 +32,24 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{'active': isOne } " @click="changeOrder(1)">
+                  <!--  ? 'icon-jiantou_xiangshang' :'icon-jiantou_xiangxia' -->
+
+                  <a>
+                    综合 <span v-show="isOne" class="iconfont" :class="{'icon-jiantou_xiangshang':isAsc,'icon-jiantou_xiangxia':!isAsc}"></span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
+                <li :class="{'active':!isOne }" @click="changeOrder(2)">
+                  <a>
+                    价格 <span v-show="!isOne" class="iconfont " :class="{'icon-jiantou_xiangshang':isAsc,'icon-jiantou_xiangxia':!isAsc}"></span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
+                <!-- <li>
                   <a href="#">价格⬆</a>
-                </li>
-                <li>
+                </li> -->
+                <!-- <li>
                   <a href="#">价格⬇</a>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default {
         "category3Id": "",
         "categoryName": "",
         "keyword": "",
-        "order": "",
+        "order": "1:desc", // 默认为: 综合降序
         "pageNo": 1,
         "pageSize": 10,
         "props": [],
@@ -141,7 +141,13 @@ export default {
     SearchSelector
   },
   computed: {
-    ...mapGetters(['attrsList', 'goodsList', 'trademarkList'])
+    ...mapGetters(['attrsList', 'goodsList', 'trademarkList']),
+    isAsc() {
+      return this.searchParams.order.indexOf('asc') != -1
+    },
+    isOne() {
+      return this.searchParams.order.indexOf('1') != -1
+    }
   },
   beforeMount() {
     Object.assign(this.searchParams, this.$route.query, this.$route.params)
@@ -198,6 +204,18 @@ export default {
     // 移除商品数据面包屑
     removeProp(item) {
       this.searchParams.props = this.searchParams.props.filter(x => x != item)
+      this.getSearchData()
+    },
+    // 修改排序方式
+    changeOrder(flag) {
+      let index = this.searchParams.order.split(':')[0]
+      let sc = this.searchParams.order.split(':')[1]
+      if (flag == index) {
+        sc = sc == 'desc' ? 'asc' : 'desc'
+      } else {
+        sc = 'desc'
+      }
+      this.searchParams.order = `${flag}:${sc}`
       this.getSearchData()
     }
   },
