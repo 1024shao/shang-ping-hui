@@ -11,10 +11,8 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-show="searchParams.categoryName">
+              {{searchParams.categoryName}}<i @click="removeCategoryName"> x</i></li>
           </ul>
         </div>
 
@@ -146,6 +144,19 @@ export default {
   methods: {
     getSearchData() {
       this.$store.dispatch('getSearchInfo', this.searchParams)
+    },
+    removeCategoryName() {
+      // 设置为undefined可以减少携带参数的体积。
+      this.searchParams.categoryName = undefined
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+      this.getSearchData()
+      // 进行路由跳转
+      // 如果路径存在params参数不需要删除params
+      if (this.$router.params) {
+        this.$router.push({ name: 'search', params: this.$router.params })
+      }
     }
   },
   watch: {
@@ -153,9 +164,9 @@ export default {
       deep: true,
       handler() {
         // 每次请求完之前将上一次请求id置空,下一次请求不会产生id错误
-        this.searchParams.category1Id = ''
-        this.searchParams.category2Id = ''
-        this.searchParams.category3Id = ''
+        this.searchParams.category1Id = undefined
+        this.searchParams.category2Id = undefined
+        this.searchParams.category3Id = undefined
         Object.assign(this.searchParams, this.$route.query, this.$route.params)
         this.getSearchData()
       }
