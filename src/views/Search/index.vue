@@ -147,6 +147,19 @@ export default {
     getSearchData() {
       this.$store.dispatch('getSearchInfo', this.searchParams)
     }
+  },
+  watch: {
+    $route: {
+      deep: true,
+      handler() {
+        // 每次请求完之前将上一次请求id置空,下一次请求不会产生id错误
+        this.searchParams.category1Id = ''
+        this.searchParams.category2Id = ''
+        this.searchParams.category3Id = ''
+        Object.assign(this.searchParams, this.$route.query, this.$route.params)
+        this.getSearchData()
+      }
+    }
   }
 }
 </script>

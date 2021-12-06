@@ -1,7 +1,7 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container" @mouseleave="leaveShow">  
+    <div class="container" @mouseleave="leaveShow">
       <h2 class="all" @mouseenter="isShowNav = true">全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -74,23 +74,21 @@ export default {
     goSearch(e) {
       let element = e.target
       const { categoryname, category1id, category2id, category3id } = element.dataset
-      console.log(element.dataset)
       if (categoryname) {
         // 准备跳转location对象
         const location = { name: 'search' }
         const query = { categoryName: categoryname }
         if (category1id) {
-          query.categoryId = category1id
+          query.category1Id = category1id
         } else if (category2id) {
-          query.categoryId = category2id
+          query.category2Id = category2id
         } else {
-          query.categoryId = category3id
+          query.category3Id = category3id
         }
         location.query = query
         // 如果当前路由存在params参数则进行合并
         if (this.$route.params) {
           location.params = this.$route.params
-          console.log(location.params)
         }
         this.$router.push(location)
       }
