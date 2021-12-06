@@ -82,7 +82,7 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination />
+          <Pagination :total='31' :pageSize='3' :pageNo='7' :continues='5' />
         </div>
       </div>
     </div>
