@@ -13,6 +13,9 @@
           <ul class="fl sui-tag">
             <li class="with-x" v-show="searchParams.categoryName">
               {{searchParams.categoryName}}<i @click="removeCategoryName"> x</i></li>
+            <!-- 关键字的面包屑 -->
+            <li class="with-x" v-show="searchParams.keyword">
+              {{searchParams.keyword}}<i @click="removeKeyword"> x</i></li>
           </ul>
         </div>
 
@@ -156,6 +159,18 @@ export default {
       // 如果路径存在params参数不需要删除params
       if (this.$router.params) {
         this.$router.push({ name: 'search', params: this.$router.params })
+      }
+    },
+    // 移除分类面包屑
+    removeKeyword() {
+      // 设置为undefined可以减少携带参数的体积。
+      this.searchParams.keyword = undefined
+      this.getSearchData()
+      // 置空搜索内容
+      this.$bus.$emit('removeKeyword')
+      // 重置搜索栏内容
+      if (this.$router.query) {
+        this.$router.push({ name: 'search', query: this.$router.query })
       }
     }
   },

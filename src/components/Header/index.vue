@@ -59,7 +59,12 @@ export default {
         location.query = this.$route.query
       }
       this.$router.push(location)
-    }
+    },
+  },
+  mounted() {
+    this.$bus.$on('removeKeyword', () => {
+      this.keyword = ''
+    })
   }
 }
 </script>
