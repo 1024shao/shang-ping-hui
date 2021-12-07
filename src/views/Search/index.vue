@@ -33,8 +33,6 @@
             <div class="navbar-inner filter">
               <ul class="sui-nav">
                 <li :class="{'active': isOne } " @click="changeOrder(1)">
-                  <!--  ? 'icon-jiantou_xiangshang' :'icon-jiantou_xiangxia' -->
-
                   <a>
                     综合 <span v-show="isOne" class="iconfont" :class="{'icon-jiantou_xiangshang':isAsc,'icon-jiantou_xiangxia':!isAsc}"></span>
                   </a>
@@ -44,12 +42,6 @@
                     价格 <span v-show="!isOne" class="iconfont " :class="{'icon-jiantou_xiangshang':isAsc,'icon-jiantou_xiangxia':!isAsc}"></span>
                   </a>
                 </li>
-                <!-- <li>
-                  <a href="#">价格⬆</a>
-                </li> -->
-                <!-- <li>
-                  <a href="#">价格⬇</a>
-                </li> -->
               </ul>
             </div>
           </div>
@@ -59,7 +51,9 @@
               <li class="yui3-u-1-5" v-for="good in goodsList" :key='good.id'>
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
+                    <router-link :to="`/detail/${good.id}`">
+                      <img :src="good.defaultImg" />
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
