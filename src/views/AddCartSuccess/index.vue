@@ -13,7 +13,8 @@
           </div>
         </div>
         <div class="right-gocart">
-          <a href="javascript:" class="sui-btn btn-xlarge">查看商品详情</a>
+          <!-- <a href="javascript:" class="sui-btn btn-xlarge">查看商品详情</a> -->
+          <router-link class="sui-btn btn-xlarge" :to="`/detail/${skuInfo.id}`">查看商品详情</router-link>
           <a href="javascript:">去购物车结算 > </a>
         </div>
       </div>
