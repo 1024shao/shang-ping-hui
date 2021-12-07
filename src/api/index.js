@@ -12,3 +12,5 @@ export const requestSearchList = params => request({
   method: 'post',
   data: params
 })
+// 请求detail数据
+export const requestDetailList = skuId => request({ url: `item/${skuId}`, method: "get" })
