@@ -71,9 +71,9 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt">
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="skuNum" @change="handleSkuNum">
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a href="javascript:" class="mins" @click="skuNum >1? skuNum-- :skuNum">-</a>
               </div>
               <div class="add">
                 <a href="javascript:">加入购物车</a>
@@ -332,6 +332,11 @@ import Zoom from './Zoom/Zoom'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Detail',
+  data() {
+    return {
+      skuNum: 1
+    }
+  },
   components: {
     ImageList,
     Zoom
@@ -351,6 +356,15 @@ export default {
     changeActive(spuSaleAttrList, index) {
       spuSaleAttrList.forEach(item => item.isChecked = 0)
       spuSaleAttrList[index].isChecked = 1
+    },
+    // 修改加入购物车的数量
+    handleSkuNum() {
+      let res = this.skuNum * 1
+      if (isNaN(res) || res <= 1) {
+        this.skuNum = 1
+      } else {
+        this.skuNum = parseInt(res)
+      }
     }
   }
 }
