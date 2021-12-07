@@ -30,5 +30,11 @@ export default [
     name: "addcartsuccess",
     component: () => import('@/views/AddCartSuccess'),
     meta: { show: true }
+  },
+  {
+    path: '/shopcart',
+    name: "shopcart",
+    component: () => import('@/views/ShopCart'),
+    meta: { show: true }
   }
 ]
