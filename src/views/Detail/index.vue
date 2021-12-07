@@ -372,7 +372,8 @@ export default {
       let result = await requestAddToShopCar(this.$route.params.goodId, this.skuNum)
       if (result.code == 200) {
         console.log('200')
-        this.$router.push({ name: 'addcartsuccess' })
+        window.sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo))
+        this.$router.push({ name: 'addcartsuccess', query: { skuNum: this.skuNum } })
       } else {
         alert(result.message)
       }
