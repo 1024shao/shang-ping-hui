@@ -72,11 +72,11 @@
             <div class="cartWrap">
               <div class="controls">
                 <input autocomplete="off" class="itxt" v-model="skuNum" @change="handleSkuNum">
-                <a href="javascript:" class="plus" @click="skuNum++">+</a>
-                <a href="javascript:" class="mins" @click="skuNum >1? skuNum-- :skuNum">-</a>
+                <a class="plus" @click="skuNum++">+</a>
+                <a class="mins" @click="skuNum >1? skuNum-- :skuNum">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addToShopCar">加入购物车</a>
               </div>
             </div>
           </div>
@@ -330,6 +330,7 @@
 import ImageList from './ImageList/ImageList'
 import Zoom from './Zoom/Zoom'
 import { mapGetters } from 'vuex'
+import { requestAddToShopCar } from '@/api'
 export default {
   name: 'Detail',
   data() {
@@ -365,6 +366,17 @@ export default {
       } else {
         this.skuNum = parseInt(res)
       }
+    },
+    // 加入到购物车
+    async addToShopCar() {
+      let result = await requestAddToShopCar(this.$route.params.goodId, this.skuNum)
+      if (result.code == 200) {
+        console.log('200')
+        this.$router.push({ name: 'addcartsuccess' })
+      } else {
+        alert(result.message)
+      }
+
     }
   }
 }

@@ -24,5 +24,11 @@ export default [
     path: '/detail/:goodId',
     component: () => import('@/views/Detail'),
     meta: { show: true }
+  },
+  {
+    path: '/addcartsuccess',
+    name: "addcartsuccess",
+    component: () => import('@/views/AddCartSuccess'),
+    meta: { show: true }
   }
 ]

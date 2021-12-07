@@ -13,8 +13,7 @@ const actions = {
     if (result.code == 200) {
       commit('GETDETAILLIST', result.data)
     }
-
-  }
+  },
 }
 const getters = {
   categoryView(state) {
