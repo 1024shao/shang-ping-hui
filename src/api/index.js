@@ -17,3 +17,5 @@ export const requestDetailList = skuId => request({ url: `item/${skuId}`, method
 // 加入到购物车数据 /api/cart/addToCart/{ skuId }/{ skuNum }   方式: post
 export const requestAddToShopCar = (skuId, skuNum) =>
   request({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })
+// 请求购物车数据
+export const requestCartList = () => request({ url: '/cart/cartList', method: 'get' })

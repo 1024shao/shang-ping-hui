@@ -1,6 +1,7 @@
 import axios from 'axios'
 // 引入进度条
 import nprogress from 'nprogress'
+import store from '@/store'
 import 'nprogress/nprogress.css'
 const request = axios.create({
   baseURL: '/api',
@@ -8,12 +9,17 @@ const request = axios.create({
 })
 
 request.interceptors.request.use(config => {
+  // 进行游客身份校验 nanoId
+  if (store.state.shopcart.nanoId) {
+    config.headers.userTempId = store.state.shopcart.nanoId
+  }
   nprogress.start()
   // 请求拦截器
   return config
 })
 
 request.interceptors.response.use(res => {
+
   nprogress.done()
   return res.data
 }, err => {
