@@ -14,7 +14,7 @@ export const requestSearchList = params => request({
 })
 // 请求detail数据
 export const requestDetailList = skuId => request({ url: `item/${skuId}`, method: "get" })
-// 加入到购物车数据 /api/cart/addToCart/{ skuId }/{ skuNum }   方式: post
+// 将商品添加到购物车/对已有数据进行修改 /api/cart/addToCart/{ skuId }/{ skuNum }   方式: post
 export const requestAddToShopCar = (skuId, skuNum) =>
   request({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })
 // 请求购物车数据

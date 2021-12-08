@@ -11,7 +11,7 @@
         <div class="cart-th6">操作</div>
       </div>
       <div class="cart-body">
-        <ul class="cart-list" v-for="item in cartList" :key="item.id">
+        <ul class="cart-list" v-for="(item,index) in cartList" :key="item.id">
           <li class="cart-list-con1">
             <input type="checkbox" name="chk_list" :Checked='item.isChecked'>
           </li>
@@ -23,9 +23,9 @@
             <span class="price">{{item.cartPrice}}.00</span>
           </li>
           <li class="cart-list-con5">
-            <a class="mins" @click="item.skuNum > 1 ? item.skuNum--: item.skuNum">-</a>
-            <input autocomplete="off" type="text" value="1" minnum="1" class="itxt" v-model="item.skuNum">
-            <a class="plus" @click="item.skuNum++">+</a>
+            <a class="mins" @click="updateGoodsNum('sub',-1,item)">-</a>
+            <input autocomplete="off" type="text" :value="item.skuNum" class="itxt" @change="updateGoodsNum('change',$event.target.value*1,item,index)">
+            <a class="plus" @click="updateGoodsNum('add',1,item)">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{item.cartPrice * item.skuNum}}</span>
@@ -66,6 +66,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { requestAddToShopCar } from '@/api'
 export default {
   name: 'ShopCart',
   created() {
@@ -82,6 +83,31 @@ export default {
     // 判断是否全选
     isAllChecked() {
       return this.cartList.every(item => item.isChecked == 1)
+    },
+  },
+  methods: {
+    // 修改商品个数
+    async updateGoodsNum(type, num, goods, index) {
+      console.log('@@@', num)
+      let updateNum = 0
+      switch (type) {
+        case 'add':
+          updateNum = 1
+          break;
+        case 'sub':
+          updateNum = goods.skuNum > 1 ? -1 : 0;
+          break;
+        default:
+          if (isNaN(num) || num < 1) {
+            updateNum = 0
+          } else {
+            updateNum = parseInt(num) - goods.skuNum
+          }
+          break;
+      }
+      console.log(updateNum)
+      await requestAddToShopCar(goods.skuId, updateNum)
+      this.$store.dispatch('getCartList')
     }
   }
 }

@@ -373,6 +373,7 @@ export default {
       if (result.code == 200) {
         // 将商品详情添加到本地会话存储
         window.sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo))
+
         this.$router.push({ name: 'addcartsuccess', query: { skuNum: this.skuNum } })
       } else {
         alert(result.message)
