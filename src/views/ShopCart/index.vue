@@ -10,6 +10,7 @@
         <div class="cart-th5">小计（元）</div>
         <div class="cart-th6">操作</div>
       </div>
+      <h2 class="h2" v-show="cartList.length==0">购物车空空如也~~</h2>
       <div class="cart-body">
         <ul class="cart-list" v-for="(item,index) in cartList" :key="item.id">
           <li class="cart-list-con1">
@@ -31,7 +32,7 @@
             <span class="sum">{{item.cartPrice * item.skuNum}}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a href="#none" class="sindelet" @click="deleteGoods(item.skuId)">删除</a>
             <br>
             <a href="#none">移到收藏</a>
           </li>
@@ -66,7 +67,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import { requestAddToShopCar } from '@/api'
+import { requestAddToShopCar, requestDeleteGoods } from '@/api'
+import throttle from 'lodash/throttle'
 export default {
   name: 'ShopCart',
   created() {
@@ -108,7 +110,12 @@ export default {
       console.log(updateNum)
       await requestAddToShopCar(goods.skuId, updateNum)
       this.$store.dispatch('getCartList')
-    }
+    },
+    // 根据skuId删除某个购物车中的商品
+    deleteGoods: throttle(async function (skuId) {
+      await requestDeleteGoods(skuId)
+      this.$store.dispatch('getCartList')
+    })
   }
 }
 </script>
@@ -117,7 +124,12 @@ export default {
 .cart {
   width: 1200px;
   margin: 0 auto;
-
+  .h2 {
+    margin: 20px;
+    color: skyblue;
+    text-align: center;
+    font-size: 35px;
+  }
   h4 {
     margin: 9px 0;
     font-size: 14px;

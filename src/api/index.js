@@ -16,6 +16,8 @@ export const requestSearchList = params => request({
 export const requestDetailList = skuId => request({ url: `item/${skuId}`, method: "get" })
 // 将商品添加到购物车/对已有数据进行修改 /api/cart/addToCart/{ skuId }/{ skuNum }   方式: post
 export const requestAddToShopCar = (skuId, skuNum) =>
-  request({ url: `/cart/addToCart/${skuId}/${skuNum}`, method: 'post' })
+  request({ url: `cart/addToCart/${skuId}/${skuNum}`, method: 'post' })
 // 请求购物车数据
-export const requestCartList = () => request({ url: '/cart/cartList', method: 'get' })
+export const requestCartList = () => request({ url: 'cart/cartList', method: 'get' })
+// 删除购物车中的某一个数据 /api/cart/deleteCart/{skuId} 请求方式delete
+export const requestDeleteGoods = skuId => request({ url: `cart/deleteCart/${skuId}`, method: 'DELETE' })

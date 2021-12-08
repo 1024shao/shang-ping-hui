@@ -13,7 +13,12 @@ const actions = {
   async getCartList({ commit }) {
     let result = await requestCartList()
     if (result.code === 200) {
-      commit('GETCARTLIST', result.data[0].cartInfoList)
+      if (result.data[0]) {
+        commit('GETCARTLIST', result.data[0].cartInfoList)
+      } else {
+        commit('GETCARTLIST', [])
+      }
+
     }
   }
 }
