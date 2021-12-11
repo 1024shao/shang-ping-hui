@@ -25,5 +25,9 @@ export const requestDeleteGoods = skuId => request({ url: `cart/deleteCart/${sku
 export const requestSwitchChecked = (skuId, isChecked) => request({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: "get" })
 // 获取手机验证码  /api/user/passport/sendCode/{phone}phone => request({ url: `/user/passport/sendCode/${phone}`, method: 'get' })
 export const requestPhoneCode = (phone) => request({ url: `/user/passport/sendCode/${phone}`, method: 'get' });
-// 用户登录 /api/user/passport/register 请求方式 post
+// 用户注册 /api/user/passport/register 请求方式 post
 export const requestUserRegister = (data) => request({ url: '/user/passport/register', data, method: 'post' });
+// 用户登录 /api/user/passport/login
+export const requestUserLogin = data => request({ url: '/user/passport/login', data, method: 'post' })
+// 获取用户信息 /api/user/userAddress/auth/findUserAddressList
+export const requestUserInfo = () => request({ url: "/user/passport/auth/getUserInfo", method: 'get' })

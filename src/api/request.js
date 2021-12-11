@@ -13,6 +13,10 @@ request.interceptors.request.use(config => {
   if (store.state.shopcart.nanoId) {
     config.headers.userTempId = store.state.shopcart.nanoId
   }
+  // 判断是否登录存在token
+  if (window.localStorage.getItem('token')) {
+    config.headers.token = window.localStorage.getItem('token')
+  }
   nprogress.start()
   // 请求拦截器
   return config

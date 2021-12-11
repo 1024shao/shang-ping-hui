@@ -1,11 +1,19 @@
 // 登录和注册模块
-import { requestPhoneCode, requestUserRegister } from '@/api'
+import { requestPhoneCode, requestUserLogin, requestUserInfo } from '@/api'
 const state = {
-  code: ''
+  code: '',
+  token: '',
+  userInfo: {}
 }
 const mutations = {
   GETCODE(state, code) {
     state.code = code
+  },
+  USERLOGIN(state, token) {
+    state.token = token
+  },
+  GETUSERINFO(state, userInfo) {
+    state.userInfo = userInfo
   }
 }
 const actions = {
@@ -21,15 +29,21 @@ const actions = {
     }
   },
   // 用户登录
-  async userRegister({ commit }, user) {
-    let result = await requestUserRegister(user);
-    console.log(result)
-    // if (result.code == 200) {
-    //   return "ok";
-    // } else {
-    //   return Promise.reject(new Error("faile"));
-    // }
+  async userLogin({ commit }, data) {
+    let result = await requestUserLogin(data)
+    if (result.code == 200) {
+      commit('USERLOGIN', result.data.token)
+      window.localStorage.setItem('token', result.data.token)
+    }
   },
+  // 获取用户信息
+  async getUserInfo({ commit }) {
+    let result = await requestUserInfo()
+    console.log(result)
+    if (result.code == 200) {
+      commit('GETUSERINFO', result.data)
+    }
+  }
 }
 const getters = {}
 

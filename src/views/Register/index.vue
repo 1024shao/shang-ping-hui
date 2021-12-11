@@ -80,7 +80,11 @@ export default {
     async userRegister() {
       const { phone, code, password, password1 } = this;
       let result = await requestUserRegister({ phone, code, password })
-      console.log(result)
+      if (result.code == 200) {
+        this.$router.push('/login')
+      } else {
+        alert(result.message)
+      }
     }
 
   }
