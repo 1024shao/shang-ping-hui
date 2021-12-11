@@ -41,13 +41,13 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked='isAllChecked'>
+        <input class="chooseAll" type="checkbox" :checked='isAllChecked' @click="switchAllChecked">
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
-        <a href="#none">移到我的关注</a>
-        <a href="#none">清除下柜商品</a>
+        <a @click="deleteAllIsCheckedGoods">删除选中的商品</a>
+        <a>移到我的关注</a>
+        <a>清除下柜商品</a>
       </div>
       <div class="money-box">
         <div class="chosed">已选择
@@ -84,6 +84,7 @@ export default {
     },
     // 判断是否全选
     isAllChecked() {
+      if (!this.cartList.length) return false
       return this.cartList.every(item => item.isChecked == 1)
     },
   },
@@ -116,12 +117,30 @@ export default {
       await requestDeleteGoods(skuId)
       this.$store.dispatch('getCartList')
     }),
+    // 修改产品的选中状态
     updateChecked: throttle(async function (skuId, isChecked) {
       let flag = isChecked == 1 ? 0 : 1
-      let result = await requestSwitchChecked(skuId, flag)
-      console.log(result)
+      await requestSwitchChecked(skuId, flag)
       this.$store.dispatch('getCartList')
-    }, 1500)
+    }, 1500),
+    // 删除所有选中的产品
+    deleteAllIsCheckedGoods: function () {
+      this.cartList.forEach(item => {
+        if (item.isChecked == 1) {
+          requestDeleteGoods(item.skuId)
+        }
+      })
+      this.$store.dispatch('getCartList')
+    },
+    // 切换 全选/全不选
+    switchAllChecked: throttle(function (e) {
+      let checked = e.target.checked == true ? 1 : 0
+      this.cartList.forEach(async item => {
+        await requestSwitchChecked(item.skuId, checked)
+      })
+      this.$store.dispatch('getCartList')
+    })
+
   }
 }
 </script>
@@ -336,6 +355,9 @@ export default {
         }
       }
     }
+  }
+  a {
+    cursor: pointer;
   }
 }
 </style>
