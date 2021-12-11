@@ -2,7 +2,7 @@
 import { requestPhoneCode, requestUserLogin, requestUserInfo } from '@/api'
 const state = {
   code: '',
-  token: '',
+  token: localStorage.getItem('token'),
   userInfo: {}
 }
 const mutations = {

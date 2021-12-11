@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Header />
+    <keep-alive>
+      <Header />
+    </keep-alive>
     <router-view></router-view>
     <Footer v-show="$route.meta.show" />
   </div>

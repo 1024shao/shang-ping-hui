@@ -12,8 +12,8 @@
             <router-link to='/register' class="register">免费注册</router-link>
           </p>
           <p v-else>
-            <router-link to='/login'>{{userName}}</router-link>
-            <router-link to='/register' class="register">退出登录</router-link>
+            <a class="title">{{userName}}</a>
+            <router-link to='/login' class="register">退出登录</router-link>
           </p>
         </div>
         <div class="typeList">
@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     goSearch() {
+      if (!this.keyword) return alert('搜索内容不能为空')
       // 如果当前路由存在query参数则进行合并
       let location = {
         name: 'search',
@@ -81,6 +82,11 @@ export default {
 
 <style lang="less" scoped>
 .header {
+  .title {
+    color: #116363;
+    font-size: 18px;
+    margin-right: 5px;
+  }
   & > .top {
     background-color: #eaeaea;
     height: 30px;
