@@ -31,3 +31,5 @@ export const requestUserRegister = (data) => request({ url: '/user/passport/regi
 export const requestUserLogin = data => request({ url: '/user/passport/login', data, method: 'post' })
 // 获取用户信息 /api/user/userAddress/auth/findUserAddressList
 export const requestUserInfo = () => request({ url: "/user/passport/auth/getUserInfo", method: 'get' })
+// 退出登录
+export const requestLogout = () => request({ url: '/user/passport/logout', method: 'get' })

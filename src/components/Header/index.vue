@@ -13,7 +13,7 @@
           </p>
           <p v-else>
             <a class="title">{{userName}}</a>
-            <router-link to='/login' class="register">退出登录</router-link>
+            <a to='/login' class="register" @click="logout" style="cursor:pointer">退出登录</a>
           </p>
         </div>
         <div class="typeList">
@@ -71,6 +71,10 @@ export default {
       }
       this.$router.push(location)
     },
+    async logout() {
+      await this.$store.dispatch('logout')
+      this.$router.push('/home')
+    }
   },
   mounted() {
     this.$bus.$on('removeKeyword', () => {

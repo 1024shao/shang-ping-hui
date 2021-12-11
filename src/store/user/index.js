@@ -1,5 +1,7 @@
 // 登录和注册模块
-import { requestPhoneCode, requestUserLogin, requestUserInfo } from '@/api'
+import {
+  requestPhoneCode, requestUserLogin, requestUserInfo, requestLogout
+} from '@/api'
 const state = {
   code: '',
   token: localStorage.getItem('token'),
@@ -14,6 +16,11 @@ const mutations = {
   },
   GETUSERINFO(state, userInfo) {
     state.userInfo = userInfo
+  },
+  CLEAR(state) {
+    state.token = ''
+    state.userInfo = {}
+    window.localStorage.removeItem('token')
   }
 }
 const actions = {
@@ -43,7 +50,14 @@ const actions = {
     if (result.code == 200) {
       commit('GETUSERINFO', result.data)
     }
+  },
+  async logout({ commit }) {
+    let result = await requestLogout()
+    if (result.code == 200) {
+      commit('CLEAR')
+    }
   }
+
 }
 const getters = {}
 
