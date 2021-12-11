@@ -1,4 +1,4 @@
-import { requestCartList } from '@/api'
+import { requestCartList, reqUserRegister } from '@/api'
 import { getNanoId } from '@/utils/nanoid_token'
 const state = {
   cartList: [],
@@ -20,7 +20,8 @@ const actions = {
       }
 
     }
-  }
+  },
+  
 }
 const getters = {}
 

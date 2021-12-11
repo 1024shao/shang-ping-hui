@@ -6,10 +6,10 @@
         <div class="loginform">
           <ul class="tab clearFix">
             <li>
-              <a href="##" style="border-right: 0;">扫描登录</a>
+              <a style="border-right: 0;">扫描登录</a>
             </li>
             <li>
-              <a href="##" class="current">账户登录</a>
+              <a class="current">账户登录</a>
             </li>
           </ul>
 
@@ -17,7 +17,7 @@
             <form action="##">
               <div class="input-text clearFix">
                 <span></span>
-                <input type="text" placeholder="邮箱/用户名/手机号">
+                <input type="text" placeholder="邮箱/用户名/手机号" v-model="phone">
               </div>
               <div class="input-text clearFix">
                 <span class="pwd"></span>
