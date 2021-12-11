@@ -14,7 +14,7 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="(item,index) in cartList" :key="item.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :Checked='item.isChecked'>
+            <input type="checkbox" name="chk_list" :checked='item.isChecked' @change='updateChecked(item.skuId,item.isChecked)'>
           </li>
           <li class="cart-list-con2">
             <img :src="item.imgUrl">
@@ -67,7 +67,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { requestAddToShopCar, requestDeleteGoods } from '@/api'
+import { requestAddToShopCar, requestDeleteGoods, requestSwitchChecked } from '@/api'
 import throttle from 'lodash/throttle'
 export default {
   name: 'ShopCart',
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     // 修改商品个数
-    async updateGoodsNum(type, num, goods, index) {
+    updateGoodsNum: throttle(async function (type, num, goods, index) {
       console.log('@@@', num)
       let updateNum = 0
       switch (type) {
@@ -110,12 +110,18 @@ export default {
       console.log(updateNum)
       await requestAddToShopCar(goods.skuId, updateNum)
       this.$store.dispatch('getCartList')
-    },
+    }, 500),
     // 根据skuId删除某个购物车中的商品
     deleteGoods: throttle(async function (skuId) {
       await requestDeleteGoods(skuId)
       this.$store.dispatch('getCartList')
-    })
+    }),
+    updateChecked: throttle(async function (skuId, isChecked) {
+      let flag = isChecked == 1 ? 0 : 1
+      let result = await requestSwitchChecked(skuId, flag)
+      console.log(result)
+      this.$store.dispatch('getCartList')
+    }, 1500)
   }
 }
 </script>

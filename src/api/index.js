@@ -21,3 +21,5 @@ export const requestAddToShopCar = (skuId, skuNum) =>
 export const requestCartList = () => request({ url: 'cart/cartList', method: 'get' })
 // 删除购物车中的某一个数据 /api/cart/deleteCart/{skuId} 请求方式delete
 export const requestDeleteGoods = skuId => request({ url: `cart/deleteCart/${skuId}`, method: 'DELETE' })
+// 切换商品选中状态  /api/cart/checkCart/{skuID}/{isChecked}   get
+export const requestSwitchChecked = (skuId, isChecked) => request({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: "get" })
