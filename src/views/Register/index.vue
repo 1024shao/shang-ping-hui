@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       phone: '',
-      code: '',
+      code: "",
       password: '',
       password1: '',
       agree: true
@@ -73,14 +73,14 @@ export default {
     // 发送验证码
     async sendCode() {
       const { phone } = this
-      phone && (await this.$store.dispatch('getCode'))
+      phone && (await this.$store.dispatch('getCode', phone))
       this.code = this.$store.state.user.code
     },
     //user register
     async userRegister() {
-      const { code, password, password1, phone } = this;
-      (code && phone && password == password1) && (await requestUserRegister({ phone, code, password }));
-      this.$router.push('/login')
+      const { phone, code, password, password1 } = this;
+      let result = await requestUserRegister({ phone, code, password })
+      console.log(result)
     }
 
   }
