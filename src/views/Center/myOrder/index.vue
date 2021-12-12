@@ -62,32 +62,8 @@
         </table>
       </div>
       <div class="choose-order">
-        <div class="pagination">
-          <ul>
-            <li class="prev disabled">
-              <a href="javascript:">«上一页</a>
-            </li>
-            <li class="page actived">
-              <a href="javascript:">1</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">2</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">3</a>
-            </li>
-            <li class="page">
-              <a href="javascript:">4</a>
-            </li>
-
-            <li class="next disabled">
-              <a href="javascript:">下一页»</a>
-            </li>
-          </ul>
-          <div>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;共2页&nbsp;</span>
-          </div>
-        </div>
+        <!-- 分页器 -->
+        <Pagination :total='orderInfo.total' :pageSize='limit' :pageNo='page' :continues='5' @getPageNo='getPageNo' />
       </div>
     </div>
     <!--猜你喜欢-->
@@ -160,7 +136,7 @@ export default {
     return {
       page: 1, //当前第几页
       limit: 3,//一页的数据个数,
-      orderInfo: {}
+      orderInfo: {},
     }
   },
   created() {
@@ -174,6 +150,10 @@ export default {
       if (result.code == 200) {
         this.orderInfo = result.data
       }
+    },
+    getPageNo(page) {
+      this.page = page
+      this.getOrderList()
     }
   }
 }
