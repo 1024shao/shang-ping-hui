@@ -33,3 +33,7 @@ export const requestUserLogin = data => request({ url: '/user/passport/login', d
 export const requestUserInfo = () => request({ url: "/user/passport/auth/getUserInfo", method: 'get' })
 // 退出登录
 export const requestLogout = () => request({ url: '/user/passport/logout', method: 'get' })
+// 获取用户地址信息 /api/user/userAddress/auth/findUserAddressList
+export const requestAddressInfo = () => request({ url: '/user/userAddress/auth/findUserAddressList', method: 'get' })
+// 获取商品清单
+export const requestOrderInfo = () => request({ url: 'order/auth/trade', method: 'get' })

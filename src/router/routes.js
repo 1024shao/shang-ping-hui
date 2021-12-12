@@ -36,5 +36,11 @@ export default [
     name: "shopcart",
     component: () => import('@/views/ShopCart'),
     meta: { show: true }
+  },
+  {
+    path: '/trade',
+    name: "trade",
+    component: () => import('@/views/Trade'),
+    meta: { show: true }
   }
 ]

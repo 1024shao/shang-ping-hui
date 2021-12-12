@@ -36,13 +36,23 @@ const router = new VueRouter({
 });
 // 路由守卫 进行鉴权展示
 router.beforeEach((to, from, next) => {
-  if (to.path == '/shopcart') {
-    if (store.state.user.token) {
-      next()
+  let token = store.state.user.token
+  if (token) {
+    if (to.path == '/login') {
+      alert('已经登录')
+      return next('/home')
     } else {
-      alert('无法查看购物车请先登录')
+      store.dispatch('getUserInfo')
     }
-    return
+  } else {
+    if (to.path == '' || to.path == '/home') return next()
+    else if (to.path == '/login' || to.path == '/register') {
+      return next()
+    }
+    else {
+      alert('当前无法查看,清先登录')
+      return next('/login')
+    }
   }
   next()
 })
