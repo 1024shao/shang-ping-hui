@@ -48,5 +48,11 @@ export default [
     name: "pay",
     component: () => import('@/views/Pay'),
     meta: { show: true }
-  }
+  },
+  {
+    path: '/paysuccess',
+    name: "paysuccess",
+    component: () => import('@/views/PaySuccess'),
+    meta: { show: true }
+  },
 ]

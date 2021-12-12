@@ -75,6 +75,7 @@
             <span><a href="weixinpay.html" target="_blank">微信支付</a></span>
             <span>中国银联</span>
           </div>
+          <button @click="$router.push('/paysuccess')">test</button>
         </div>
       </div>
     </div>
@@ -82,11 +83,15 @@
 </template>
 
 <script>
+import QRcode from 'qrcode'
 export default {
   name: 'Pay',
   data() {
     return {
-      payInfo: {}
+      payInfo: {},
+      timer: null,
+      // 支付状态码
+      code: ''
     }
   },
   computed: {
@@ -108,15 +113,54 @@ export default {
       }
     },
     //支付
-    open() {
-      this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', '是否购买甜鼠', {
+    async open() {
+      // 借助 qrcode 生成二维码
+
+      let url = await QRcode.toDataURL(this.payInfo.codeUrl)
+      this.$alert(`<img src='${url}'></img>`, '微信支付', {
         dangerouslyUseHTMLString: true,
         center: true,
         showClose: false,
         showCancelButton: true,
         cancelButtonText: "支付遇见问题",
-        confirmButtonText: '已支付成功'
+        confirmButtonText: '已支付成功',
+        beforeClose: (type, instance, done) => {
+          if (type == 'cancel') {
+            alert('请联系管理员+ v xptz15387507459')
+            clearInterval(this.timer)
+            this.timer = null
+            done()
+          } else {
+            if (this.code == 200) {
+              clearInterval(this.timer)
+              this.timer = null
+              done()
+              this.$router.push('/paysuccess')
+            } else {
+              alert('虽然当前尚未支付,但是您可以再次点击(方便测试直接通过)')
+              this.code = 200
+            }
+          }
+        }
       });
+      // 一直询问后台是否支付
+      if (!this.timer) {
+        this.timer = setInterval(async () => {
+          let result = await this.$API.requestPayState()
+          console.log(result)
+          if (result.code == 200) {
+            // 清除定时器
+            clearInterval(this.timer)
+            this.timer = null
+            // 记录状态
+            this.code = result.code
+            // 关闭弹出层
+            this.$msgbox.close()
+            // 跳转路由
+            this.$router.replace('/paysuccess')
+          }
+        }, 1000);
+      }
     }
   }
 }
