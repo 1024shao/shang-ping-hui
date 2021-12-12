@@ -7,11 +7,7 @@ export const requestBannerList = () => mockRequest({ url: '/banner', method: 'ge
 // 请求floor数据
 export const requestFloorList = () => mockRequest({ url: '/floor', method: 'get' })
 // 请求search数据
-export const requestSearchList = params => request({
-  url: '/list',
-  method: 'post',
-  data: params
-})
+export const requestSearchList = params => request({ url: '/list', method: 'post', data: params })
 // 请求detail数据
 export const requestDetailList = skuId => request({ url: `item/${skuId}`, method: "get" })
 // 将商品添加到购物车/对已有数据进行修改 /api/cart/addToCart/{ skuId }/{ skuNum }   方式: post
@@ -37,3 +33,5 @@ export const requestLogout = () => request({ url: '/user/passport/logout', metho
 export const requestAddressInfo = () => request({ url: '/user/userAddress/auth/findUserAddressList', method: 'get' })
 // 获取商品清单
 export const requestOrderInfo = () => request({ url: 'order/auth/trade', method: 'get' })
+// 提交订单信息 /api/order/auth/submitOrder?tradeNo={tradeNo}   post
+export const requestSubmitOrder = (tradeNo, data) => request({ url: `/order/auth/submitOrder?tradeNo=${tradeNo}`, data, method: 'post' })

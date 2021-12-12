@@ -47,7 +47,7 @@
       </div>
       <div class="bbs">
         <h5>买家留言：</h5>
-        <textarea placeholder="建议留言前先与商家沟通确认" class="remarks-cont"></textarea>
+        <textarea placeholder="建议留言前先与商家沟通确认" class="remarks-cont" v-model="msg"></textarea>
 
       </div>
       <div class="line"></div>
@@ -83,7 +83,7 @@
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/pay">提交订单</router-link>
+      <a class="subBtn" @click="submitOrder">提交订单</a>
     </div>
   </div>
 </template>
@@ -92,6 +92,11 @@
 import { mapState } from 'vuex'
 export default {
   name: 'Trade',
+  data() {
+    return {
+      msg: ''
+    }
+  },
   created() {
     this.$store.dispatch('getAddressInfo')
     this.$store.dispatch('getOrderInfo')
@@ -109,6 +114,23 @@ export default {
     changeDefault(item) {
       this.addressInfo.forEach(address => address.isDefault = '0')
       item.isDefault = '1'
+    },
+    // 提交用户订单信息
+    async submitOrder() {
+      const { tradeNo } = this.orderInfo
+      let data = {
+        "consignee": this.selectAddress.consignee,
+        "consigneeTel": this.selectAddress.phoneNum,
+        "deliveryAddress": this.selectAddress.fullAddress,
+        "paymentWay": "ONLINE",
+        "orderComment": this.msg,
+        "orderDetailList": this.orderInfo.detailArrayList
+      }
+      let result = await this.$API.requestSubmitOrder(tradeNo, data)
+      console.log(result)
+      if (result.code === 200) {
+         
+      }
     }
   }
 }

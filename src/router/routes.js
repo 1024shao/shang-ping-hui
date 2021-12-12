@@ -42,5 +42,11 @@ export default [
     name: "trade",
     component: () => import('@/views/Trade'),
     meta: { show: true }
+  },
+  {
+    path: '/pay',
+    name: "pay",
+    component: () => import('@/views/Pay'),
+    meta: { show: true }
   }
 ]

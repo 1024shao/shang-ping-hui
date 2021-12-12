@@ -23,7 +23,7 @@ const actions = {
     if (result.code == 200) {
       commit('GETORDERINFO', result.data)
     }
-  }
+  },
 }
 const getters = {}
 
