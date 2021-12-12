@@ -94,7 +94,8 @@ export default {
   name: 'Trade',
   data() {
     return {
-      msg: ''
+      msg: '',
+      orderId: ''
     }
   },
   created() {
@@ -129,7 +130,10 @@ export default {
       let result = await this.$API.requestSubmitOrder(tradeNo, data)
       console.log(result)
       if (result.code === 200) {
-         
+        this.orderId = result.data
+        this.$router.push(`/pay?orderId=${this.orderId}`)
+      } else {
+        alert(result.message)
       }
     }
   }

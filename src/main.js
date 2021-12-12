@@ -15,8 +15,9 @@ Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carousel.name, Carousel)
 Vue.component(Pagination.name, Pagination)
 // 统一api接口全部存在Vue的原型上
-
-
+import { MessageBox } from 'element-ui'
+Vue.prototype.$msgbox = MessageBox
+Vue.prototype.$alert = MessageBox.alert
 new Vue({
   router,
   store,
