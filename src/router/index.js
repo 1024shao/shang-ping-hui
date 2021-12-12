@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes'
+import store from '@/store'
 Vue.use(VueRouter);
 
 // 重写push方法
@@ -24,7 +25,7 @@ VueRouter.prototype.replace = function (location, resolve, reject) {
   }
 }
 
-export const router = new VueRouter({
+const router = new VueRouter({
   base: '/',
   mode: 'history',
   routes,
@@ -33,3 +34,16 @@ export const router = new VueRouter({
     return { y: 0 }
   }
 });
+// 路由守卫 进行鉴权展示
+router.beforeEach((to, from, next) => {
+  if (to.path == '/shopcart') {
+    if (store.state.user.token) {
+      next()
+    } else {
+      alert('无法查看购物车请先登录')
+    }
+    return
+  }
+  next()
+})
+export default router
