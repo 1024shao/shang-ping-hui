@@ -55,4 +55,10 @@ export default [
     component: () => import('@/views/PaySuccess'),
     meta: { show: true }
   },
+  {
+    path: '/center',
+    name: "center",
+    component: () => import('@/views/Center'),
+    meta: { show: true }
+  },
 ]
