@@ -46,6 +46,7 @@ const actions = {
   // 获取用户信息
   async getUserInfo({ commit }) {
     let result = await requestUserInfo()
+    console.log(result, 'user')
     if (result.code == 200) {
       commit('GETUSERINFO', result.data)
     }

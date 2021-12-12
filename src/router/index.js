@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes'
 import store from '@/store'
+import detail from '@/store/detail';
 Vue.use(VueRouter);
 
 // 重写push方法
@@ -37,6 +38,7 @@ const router = new VueRouter({
 // 路由守卫 进行鉴权展示
 router.beforeEach((to, from, next) => {
   let token = store.state.user.token
+  console.log('全局')
   if (token) {
     if (to.path == '/login') {
       alert('已经登录')
@@ -45,7 +47,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch('getUserInfo')
     }
   } else {
-    if (to.path == '' || to.path == '/home') return next()
+    if (to.path == '' || to.path == '/home' || to.path == '/search' || detail) return next()
     else if (to.path == '/login' || to.path == '/register') {
       return next()
     }

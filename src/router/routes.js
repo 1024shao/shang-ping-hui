@@ -29,31 +29,48 @@ export default [
     path: '/addcartsuccess',
     name: "addcartsuccess",
     component: () => import('@/views/AddCartSuccess'),
-    meta: { show: true }
+    meta: { show: true },
   },
   {
     path: '/shopcart',
     name: "shopcart",
     component: () => import('@/views/ShopCart'),
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path == '/search') next()
+      else next(from.path)
+    }
   },
   {
     path: '/trade',
     name: "trade",
     component: () => import('@/views/Trade'),
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path == '/shopcart') next()
+      else {
+        next(from.path)
+      }
+    }
   },
   {
     path: '/pay',
     name: "pay",
     component: () => import('@/views/Pay'),
-    meta: { show: true }
+    meta: { show: true },
+    beforeEnter: (to, from, next) => {
+      if (from.path == '/trade') next()
+      else {
+        next(from.path)
+      }
+    }
   },
   {
     path: '/paysuccess',
     name: "paysuccess",
     component: () => import('@/views/PaySuccess'),
-    meta: { show: true }
+    meta: { show: true },
+    // 路由独享守卫
   },
   {
     path: '/center',

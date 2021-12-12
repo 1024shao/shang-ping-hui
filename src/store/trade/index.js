@@ -20,6 +20,7 @@ const actions = {
   },
   async getOrderInfo({ commit }) {
     let result = await requestOrderInfo()
+    console.log(result, '*******')
     if (result.code == 200) {
       commit('GETORDERINFO', result.data)
     }

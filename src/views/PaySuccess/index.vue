@@ -18,73 +18,82 @@
 </template>
 
 <script>
-  export default {
-    name: 'PaySuccess',
+export default {
+  name: 'PaySuccess',
+  // 渲染组件之前调用 不能获取组件实例
+  beforeRouteEnter(to, from, next) {
+    console.log(this)
+    if (from.path === '/pay') {
+      next()
+    } else {
+      next(from.path)
+    }
   }
+}
 </script>
 
 <style lang="less" scoped>
-  .paysuccess {
-    margin: 20px auto;
-    padding: 25px;
-    border: 1px solid rgb(211, 211, 211);
-    width: 1200px;
-    width: 1148px;
+.paysuccess {
+  margin: 20px auto;
+  padding: 25px;
+  border: 1px solid rgb(211, 211, 211);
+  width: 1200px;
+  width: 1148px;
 
-    .success {
-      width: 500px;
-      margin: 0 auto;
+  .success {
+    width: 500px;
+    margin: 0 auto;
 
-      h3 {
-        margin: 20px 0;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 30px;
+    h3 {
+      margin: 20px 0;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
 
-        img {
-          max-width: 100%;
-          vertical-align: middle;
-          border: 0;
-          margin-right: 14px;
-        }
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+        border: 0;
+        margin-right: 14px;
       }
+    }
 
-      .paydetail {
-        margin-left: 66px;
-        font-size: 15px;
+    .paydetail {
+      margin-left: 66px;
+      font-size: 15px;
 
-        .button {
-          margin: 30px 0;
-          line-height: 26px;
+      .button {
+        margin: 30px 0;
+        line-height: 26px;
 
-          a {
-            display: inline-block;
-            box-sizing: border-box;
-            text-align: center;
-            vertical-align: middle;
-            cursor: pointer;
-            border-radius: 2px;
-            user-select: none;
-            font-size: 18px;
-            padding: 4px 20px;
-            line-height: 22px;
-            text-decoration: none;
+        a {
+          display: inline-block;
+          box-sizing: border-box;
+          text-align: center;
+          vertical-align: middle;
+          cursor: pointer;
+          border-radius: 2px;
+          user-select: none;
+          font-size: 18px;
+          padding: 4px 20px;
+          line-height: 22px;
+          text-decoration: none;
 
-            &.btn-look {
-              margin-right: 13px;
-              color: #fff;
-              background-color: #e1251b;
-              border: 1px solid #e1251b;
-            }
+          &.btn-look {
+            margin-right: 13px;
+            color: #fff;
+            background-color: #e1251b;
+            border: 1px solid #e1251b;
+          }
 
-            &.btn-goshop {
-              color: #666;
-              background-color: #eee;
-              border: 1px solid #e1e1e1;
-            }
+          &.btn-goshop {
+            color: #666;
+            background-color: #eee;
+            border: 1px solid #e1e1e1;
           }
         }
       }
     }
   }
+}
 </style>
