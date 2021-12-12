@@ -59,6 +59,19 @@ export default [
     path: '/center',
     name: "center",
     component: () => import('@/views/Center'),
-    meta: { show: true }
+    meta: { show: true },
+    redirect: '/center/myorder',
+    children: [
+      {
+        path: 'myorder',
+        name: 'myorder',
+        component: () => import('@/views/Center/myOrder')
+      },
+      {
+        path: 'grouporder',
+        name: 'grouporder',
+        component: () => import('@/views/Center/groupOrder')
+      },
+    ]
   },
 ]
