@@ -19,6 +19,7 @@ Vue.component(Pagination.name, Pagination)
 Vue.use(VueLazyload, {
   loading
 })
+import '@/plugins/validate'
 // 统一api接口全部存在Vue的原型上
 import { MessageBox } from 'element-ui'
 Vue.prototype.$msgbox = MessageBox

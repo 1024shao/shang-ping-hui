@@ -8430,6 +8430,11 @@
   "resolved" "https://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz"
   "version" "1.1.2"
 
+"vee-validate@^2.2.15":
+  "integrity" "sha512-4TOsI8XwVkKVLkg8Nhmy+jyoJrR6XcTRDyxBarzcCvYzU61zamipS1WsB6FlDze8eJQpgglS4NXAS6o4NDPs1g=="
+  "resolved" "https://registry.npmjs.org/vee-validate/-/vee-validate-2.2.15.tgz"
+  "version" "2.2.15"
+
 "vendors@^1.0.0":
   "integrity" "sha1-4rgApT56Kbk1BsPPQRANFsTErY4= sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w=="
   "resolved" "https://registry.nlark.com/vendors/download/vendors-1.0.4.tgz"
