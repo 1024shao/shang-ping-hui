@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import routes from './routes'
 import store from '@/store'
-import detail from '@/store/detail';
 Vue.use(VueRouter);
 
 // 重写push方法
