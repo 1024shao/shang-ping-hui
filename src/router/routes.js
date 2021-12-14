@@ -3,25 +3,28 @@ export default [
   { path: '/', redirect: '/home' },
   { path: '/home', component: Home, meta: { show: true } },
   {
-    name: 'search',
     //   params传递参数需要路由进行占位符   /:name   /:name 表示可以传递也可以不传
     path: '/search/:keyword?',
+    name: 'search',
     component: () => import('@/views/Search'),
     meta: { show: true },
     props: ($route) => ({ keyword: $route.params.keyword })
   },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/Login'),
     meta: { show: false }
   },
   {
     path: '/register',
+    name: 'register',
     component: () => import('@/views/Register'),
     meta: { show: false }
   },
   {
     path: '/detail/:goodId',
+    name: "detail",
     component: () => import('@/views/Detail'),
     meta: { show: true }
   },
@@ -36,10 +39,10 @@ export default [
     name: "shopcart",
     component: () => import('@/views/ShopCart'),
     meta: { show: true },
-    beforeEnter: (to, from, next) => {
-      if (from.path == '/search') next()
-      else next(from.path)
-    }
+    // beforeEnter: (to, from, next) => {
+    //   if (from.path == '/search') next()
+    //   else next(from.path)
+    // }
   },
   {
     path: '/trade',

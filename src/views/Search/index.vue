@@ -76,6 +76,10 @@
               </li>
             </ul>
           </div>
+          <!-- 没有商品数据的时候提示内容 -->
+          <div v-show="goodsList.length===0" class="noDataShowMsg">
+            <h1>因为数据不足,所以该商品类无法展示,您可以跳转回首页,点击前三列导航进行后序操作</h1>
+          </div>
           <!-- 分页器 -->
           <Pagination :total='total' :pageSize='searchParams.pageSize' :pageNo='searchParams.pageNo' :continues='5' @getPageNo='getPageNo' />
         </div>
@@ -213,6 +217,11 @@ export default {
 
 <style lang="less" scoped>
 .main {
+  .noDataShowMsg {
+    text-align: center;
+    margin: 20px;
+    color: #28a3ef;
+  }
   margin: 10px 0;
   .py-container {
     width: 1200px;

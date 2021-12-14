@@ -6,7 +6,7 @@ const state = {
 
 const mutations = {
   CATEGORYLIST(state, value) {
-    state.categoryList = value
+    state.categoryList = value  
   },
   GETFLOORLIST(state, value) {
     state.floorList = value

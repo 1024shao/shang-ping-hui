@@ -35,10 +35,10 @@ const router = new VueRouter({
     return { y: 0 }
   }
 });
+
 // 路由守卫 进行鉴权展示
 router.beforeEach((to, from, next) => {
   let token = store.state.user.token
-  console.log('全局')
   if (token) {
     if (to.path == '/login') {
       alert('已经登录')
@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch('getUserInfo')
     }
   } else {
-    if (to.path == '' || to.path == '/home' || to.path == '/search' || detail) return next()
+    if (to.path == '' || to.path == '/home' || to.path == '/search' || to.name == 'detail') return next()
     else if (to.path == '/login' || to.path == '/register') {
       return next()
     }

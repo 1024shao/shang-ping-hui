@@ -16,12 +16,14 @@
           <div class="content">
             <form>
               <div class="input-text clearFix">
-                <span></span>
-                <input type="text" placeholder="邮箱/用户名/手机号" v-model="phone">
+                <span class="icon"></span>
+                <input placeholder="邮箱/用户名/手机号" v-model="phone" name="phone" v-validate="{ required: true, regex: /^1\d{10}$/ }" :class="{ invalid: errors.has('phone') }" />
+                <span class="error-msg">{{ errors.first("phone") }}</span>
               </div>
               <div class="input-text clearFix">
-                <span class="pwd"></span>
-                <input type="password" placeholder="请输入密码" v-model="password">
+                <span class="pwd icon"></span>
+                <input type="password" placeholder="请输入你的密码" v-model="password" name="password" v-validate="{ required: true, regex: /^[0-9A-Za-z]{8,20}$/ }" :class="{ invalid: errors.has('password') }" />
+                <span class="error-msg">{{ errors.first("password") }}</span>
               </div>
               <div class="setting clearFix">
                 <label class="checkbox inline">
@@ -76,12 +78,15 @@ export default {
   },
   methods: {
     async userLogin() {
-      const { phone, password } = this
-      try {
-        await this.$store.dispatch('userLogin', { phone, password })
-        this.$router.push('/home')
-      } catch (error) {
-        alert(error.message)
+      const success = await this.$validator.validateAll()
+      if (success) {
+        const { phone, password } = this
+        try {
+          await this.$store.dispatch('userLogin', { phone, password })
+          this.$router.push('/home')
+        } catch (error) {
+          alert(error.message)
+        }
       }
     }
   }
@@ -90,6 +95,9 @@ export default {
 
 <style lang="less" scoped>
 .login-container {
+  .error-msg {
+    color: red;
+  }
   .login-wrap {
     height: 487px;
     background-color: #e93854;
@@ -154,7 +162,7 @@ export default {
           .input-text {
             margin-bottom: 16px;
 
-            span {
+            .icon {
               float: left;
               width: 37px;
               height: 32px;

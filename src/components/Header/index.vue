@@ -35,6 +35,11 @@
           <img src="./images/logo.png" alt="">
         </router-link>
       </h1>
+      <div class="account">
+        <h3>测试管理员账号： 13700000000</h3>
+        <h3>测试管理员密码： 111111</h3>
+        <h3>因为数据的原因,三级导航栏只有 <span>前三列</span> 有数据</h3>
+      </div>
       <div class="searchArea">
         <form action="###" class="searchForm">
           <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
@@ -53,7 +58,6 @@ export default {
     }
   },
   created() {
-    console.log('header')
     this.$store.dispatch('getUserInfo')
   },
   computed: {
@@ -90,6 +94,15 @@ export default {
 
 <style lang="less" scoped>
 .header {
+  .account {
+    padding: 10px;
+    color: rgb(219, 79, 79);
+    span {
+      font-size: 20px;
+      font-weight: 600;
+      color: red;
+    }
+  }
   .title {
     color: #116363;
     font-size: 18px;
