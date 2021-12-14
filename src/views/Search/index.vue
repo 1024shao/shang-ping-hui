@@ -69,7 +69,7 @@
                     <i class="command">已有<span>2000</span>人评价</i>
                   </div>
                   <div class="operate">
-                    <a href="success-cart.html" target="_blank" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                    <router-link :to="`/detail/${good.id}`" class="sui-btn btn-bordered btn-danger">加入购物车 </router-link>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
                   </div>
                 </div>

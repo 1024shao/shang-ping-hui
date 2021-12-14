@@ -81,10 +81,11 @@ export default {
       const success = await this.$validator.validateAll()
       if (success) {
         const { phone, password } = this
-        let result = await this.$store.dispatch('userLogin', { phone, password })
-        if (result) {
+        try {
+          let result = await this.$store.dispatch('userLogin', { phone, password })
+          console.log(result)
           this.$router.push('/home')
-        } else {
+        } catch (error) {
           alert('账号或密码错误')
           this.password = ''
         }

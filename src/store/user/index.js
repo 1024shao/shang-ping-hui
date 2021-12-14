@@ -30,9 +30,6 @@ const actions = {
     console.log(result)
     if (result.code == 200) {
       commit('GETCODE', result.data)
-      return 'ok'
-    } else {
-      return Promise.reject(new Error('error'))
     }
   },
   // 用户登录
@@ -41,6 +38,9 @@ const actions = {
     if (result.code == 200) {
       commit('USERLOGIN', result.data.token)
       window.localStorage.setItem('token', result.data.token)
+      return 'ok'
+    } else {
+      return Promise.reject(new Error('error'))
     }
   },
   // 获取用户信息
@@ -48,7 +48,11 @@ const actions = {
     let result = await requestUserInfo()
     if (result.code == 200) {
       commit('GETUSERINFO', result.data)
+      return 'ok'
+    } else {
+      return Promise.reject('error')
     }
+
   },
   async logout({ commit }) {
     let result = await requestLogout()
