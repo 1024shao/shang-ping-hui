@@ -88,6 +88,13 @@ export default {
     this.$bus.$on('removeKeyword', () => {
       this.keyword = ''
     })
+  },
+  watch: {
+    $route(newValue) {
+      if (newValue.name != 'search') {
+        this.keyword = ''
+      }
+    }
   }
 }
 </script>

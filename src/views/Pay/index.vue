@@ -75,7 +75,6 @@
             <span><a href="weixinpay.html" target="_blank">微信支付</a></span>
             <span>中国银联</span>
           </div>
-          <button @click="$router.push('/paysuccess')">test</button>
         </div>
       </div>
     </div>

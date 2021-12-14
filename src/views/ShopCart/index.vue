@@ -58,7 +58,7 @@
           <i class="summoney">{{totalPrice}}</i>
         </div>
         <div class="sumbtn">
-          <router-link to="/trade" class="sum-btn">结算</router-link>
+          <a class="sum-btn" @click="goTrade">结算</a>
         </div>
       </div>
     </div>
@@ -166,8 +166,15 @@ export default {
         this.isSend = false
       }, 1500)
       this.$store.dispatch('getCartList')
-    }, 2000)
-
+    }, 2000),
+    // 结算
+    goTrade() {
+      if (this.totalPrice === '0￥') {
+        alert('当前购物车未添加任何商品')
+      } else {
+        this.$router.push('/trade')
+      }
+    }
   }
 }
 </script>
