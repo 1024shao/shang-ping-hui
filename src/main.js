@@ -8,6 +8,7 @@ import VueLazyload from 'vue-lazyload'
 import TypeNav from '@/common/TypeNav'
 import Carousel from '@/components/Carousel';
 import Pagination from '@/components/Pagination';
+import IsLoading from '@/components/IsLoading'
 import '@/mock/mockServer'
 import loading from '@/assets/loading.gif'
 // 引入样式文件
@@ -16,6 +17,7 @@ import 'swiper/css/swiper.css'
 Vue.component(TypeNav.name, TypeNav)
 Vue.component(Carousel.name, Carousel)
 Vue.component(Pagination.name, Pagination)
+Vue.component(IsLoading.name, IsLoading)
 Vue.use(VueLazyload, {
   loading
 })

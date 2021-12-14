@@ -62,6 +62,7 @@
         </div>
       </div>
     </div>
+    <IsLoading v-show="isSend" />
   </div>
 </template>
 
@@ -71,6 +72,11 @@ import { requestAddToShopCar, requestDeleteGoods, requestSwitchChecked } from '@
 import throttle from 'lodash/throttle'
 export default {
   name: 'ShopCart',
+  data() {
+    return {
+      isSend: false //加载动画
+    }
+  },
   created() {
     this.$store.dispatch('getCartList')
   },
@@ -98,7 +104,6 @@ export default {
   methods: {
     // 修改商品个数
     updateGoodsNum: throttle(async function (type, num, goods, index) {
-      console.log('@@@', num)
       let updateNum = 0
       switch (type) {
         case 'add':
@@ -115,19 +120,30 @@ export default {
           }
           break;
       }
-      console.log(updateNum)
-      await requestAddToShopCar(goods.skuId, updateNum)
+      this.isSend = true
+      let result = await requestAddToShopCar(goods.skuId, updateNum)
+      if (result.code == 200) this.isSend = false
       this.$store.dispatch('getCartList')
     }, 500),
     // 根据skuId删除某个购物车中的商品
     deleteGoods: throttle(async function (skuId) {
-      await requestDeleteGoods(skuId)
-      this.$store.dispatch('getCartList')
+      this.isSend = true
+      let result = await requestDeleteGoods(skuId)
+      if (result.code == 200) {
+        setTimeout(() => {
+          this.isSend = false
+          this.$store.dispatch('getCartList')
+        }, 500)
+      }
     }),
     // 修改产品的选中状态
     updateChecked: throttle(async function (skuId, isChecked) {
+      this.isSend = true
       let flag = isChecked == 1 ? 0 : 1
-      await requestSwitchChecked(skuId, flag)
+      let result = await requestSwitchChecked(skuId, flag)
+      if (result.code == 200) {
+        this.isSend = false
+      }
       this.$store.dispatch('getCartList')
     }, 1500),
     // 删除所有选中的产品
@@ -142,9 +158,13 @@ export default {
     // 切换 全选/全不选
     switchAllChecked: throttle(function (e) {
       let checked = e.target.checked == true ? 1 : 0
+      this.isSend = true
       this.cartList.forEach(async item => {
         await requestSwitchChecked(item.skuId, checked)
       })
+      setTimeout(() => {
+        this.isSend = false
+      }, 1500)
       this.$store.dispatch('getCartList')
     }, 2000)
 
