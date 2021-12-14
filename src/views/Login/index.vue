@@ -22,7 +22,7 @@
               </div>
               <div class="input-text clearFix">
                 <span class="pwd icon"></span>
-                <input type="password" placeholder="请输入你的密码" v-model="password" name="password" v-validate="{ required: true, regex: /^[0-9A-Za-z]{8,20}$/ }" :class="{ invalid: errors.has('password') }" />
+                <input type="password" placeholder="请输入你的密码" v-model="password" name="password" v-validate="{ required: true, regex: /^[0-9A-Za-z]{3,20}$/ }" :class="{ invalid: errors.has('password') }" />
                 <span class="error-msg">{{ errors.first("password") }}</span>
               </div>
               <div class="setting clearFix">

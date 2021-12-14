@@ -55,8 +55,8 @@
           </ul>
         </div>
         <div class="footerItem">
-          <h4>帮助中心</h4>
-          <img src="./images/wx_cz.jpg">
+          <h4>扫码添加个人微信</h4>
+          <img src="@/assets/vx.png" style="margin-top:20px">
         </div>
       </div>
       <div class="copyright">
