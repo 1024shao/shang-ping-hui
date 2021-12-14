@@ -80,8 +80,15 @@ export default {
     }),
     // 计算总价
     totalPrice() {
-      return this.cartList.reduce((pre, cur) => pre + cur.cartPrice * cur.skuNum, 0)
+      let result = 0
+      this.cartList.forEach(item => {
+        if (item.isChecked == '1') {
+          result += item.skuNum * item.skuPrice
+        }
+      })
+      return result + '￥'
     },
+
     // 判断是否全选
     isAllChecked() {
       if (!this.cartList.length) return false
