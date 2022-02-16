@@ -21,4 +21,8 @@
 - QRcode 生成支付二维码
 
 ## 效果展示
-address: http://81.69.228.97/home
+address: http://81.69.228.97/home  服务器问题目前下线
+
+### 首页
+![image-20220216204633699](https://gitee.com/spencer1228/blog-img-address/raw/master/img/image-20220216204633699.png)
+
